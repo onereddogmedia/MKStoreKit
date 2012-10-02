@@ -35,7 +35,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
-#import "MKStoreKitConfigs.h"
+#import "MKStoreKitConfigsLocal.h"
 
 #define kReceiptStringKey @"MK_STOREKIT_RECEIPTS_STRING"
 
@@ -54,6 +54,8 @@
 // These are the methods you will be using in your app
 + (MKStoreManager*)sharedManager;
 
+- (void) requestProductData;
+
 // this is a class method, since it doesn't require the store manager to be initialized prior to calling
 + (BOOL) isFeaturePurchased:(NSString*) featureId;
 
@@ -66,7 +68,7 @@
 // convenience methods
 //returns a dictionary with all prices for identifiers
 - (NSMutableDictionary *)pricesDictionary;
-- (NSMutableArray*) purchasableObjectsDescription;
+- (NSMutableDictionary*) purchasableObjectsDescription;
 
 // use this method to start a purchase
 - (void) buyFeature:(NSString*) featureId

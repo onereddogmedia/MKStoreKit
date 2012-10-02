@@ -342,9 +342,9 @@ static MKStoreManager* _sharedStoreManager;
 // Call this function to populate your UI
 // this function automatically formats the currency based on the user's locale
 
-- (NSMutableArray*) purchasableObjectsDescription
+- (NSMutableDictionary*) purchasableObjectsDescription
 {
-	NSMutableArray *productDescriptions = [[NSMutableArray alloc] initWithCapacity:[self.purchasableObjects count]];
+    NSMutableDictionary *productDict = [NSMutableDictionary dictionary];
 	for(int i=0;i<[self.purchasableObjects count];i++)
 	{
 		SKProduct *product = [self.purchasableObjects objectAtIndex:i];
@@ -356,15 +356,16 @@ static MKStoreManager* _sharedStoreManager;
 		NSString *formattedString = [numberFormatter stringFromNumber:product.price];
 		
 		// you might probably need to change this line to suit your UI needs
-		NSString *description = [NSString stringWithFormat:@"%@ (%@)",[product localizedTitle], formattedString];
+        [productDict setObject:[product localizedDescription] forKey:product.productIdentifier]; 
+
+		NSString *description = [NSString stringWithFormat:@"%@: \"%@\" (%@)", [product localizedTitle], [product localizedDescription], formattedString];
 		
 #ifndef NDEBUG
 		NSLog(@"Product %d - %@", i, description);
 #endif
-		[productDescriptions addObject: description];
 	}
 	
-	return productDescriptions;
+	return productDict;
 }
 
 /*Call this function to get a dictionary with all prices of all your product identifers

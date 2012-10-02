@@ -30,7 +30,7 @@
 //	4) A paypal donation to mugunth.kumar@gmail.com
 
 #import <Foundation/Foundation.h>
-#import "MKStoreKitConfigs.h"
+#import "MKStoreKitConfigsLocal.h"
 
 @interface MKSKProduct : NSObject 
 
