@@ -53,6 +53,7 @@
 
 // These are the methods you will be using in your app
 + (MKStoreManager*)sharedManager;
++(void) setStoreKitItems:(NSDictionary *)items;
 
 - (void) requestProductData;
 
