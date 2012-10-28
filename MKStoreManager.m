@@ -250,6 +250,11 @@ static NSDictionary* _storeKitItems;
 	[self.productsRequest start];
 }
 
+- (void) requestCancel
+{
+	[self.productsRequest cancel];
+}
+
 +(NSMutableArray*) allProducts {
   
   NSMutableArray *productsArray = [NSMutableArray array];

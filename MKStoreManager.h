@@ -56,6 +56,7 @@
 +(void) setStoreKitItems:(NSDictionary *)items;
 
 - (void) requestProductData;
+- (void) requestCancel;
 
 // this is a class method, since it doesn't require the store manager to be initialized prior to calling
 + (BOOL) isFeaturePurchased:(NSString*) featureId;
