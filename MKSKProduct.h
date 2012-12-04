@@ -43,6 +43,8 @@
 @property (nonatomic, strong) NSURLConnection *theConnection;
 @property (nonatomic, strong) NSMutableData *dataFromConnection;
 
++(NSString*) deviceId;
+
 - (void) verifyReceiptOnComplete:(void (^)(void)) completionBlock
                          onError:(void (^)(NSError*)) errorBlock;
 

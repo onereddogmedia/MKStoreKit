@@ -223,7 +223,7 @@ didReceiveResponse:(NSURLResponse *)response
 	{
     if(self.onReceiptVerificationSucceeded)
     {
-      self.onReceiptVerificationSucceeded();
+      self.onReceiptVerificationSucceeded(responseString);
       self.onReceiptVerificationSucceeded = nil;
     }
 	}
@@ -278,7 +278,7 @@ didReceiveResponse:(NSURLResponse *)response
 	{
     if(onReviewRequestVerificationSucceeded)
     {
-      onReviewRequestVerificationSucceeded();
+      onReviewRequestVerificationSucceeded(responseString);
       onReviewRequestVerificationFailed = nil;
     }
 	}
