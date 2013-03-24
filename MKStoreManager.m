@@ -244,10 +244,10 @@ static NSDictionary* _storeKitItems;
   [productsArray addObjectsFromArray:consumables];
   [productsArray addObjectsFromArray:nonConsumables];
   [productsArray addObjectsFromArray:subscriptions];
-  
-	self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productsArray]];
-	self.productsRequest.delegate = self;
-	[self.productsRequest start];
+
+  self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productsArray]];
+  self.productsRequest.delegate = self;
+  [self.productsRequest start];
 }
 
 - (void) requestCancel
