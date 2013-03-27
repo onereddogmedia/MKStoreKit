@@ -183,7 +183,7 @@ static NSDictionary* _storeKitItems;
 #ifdef __IPHONE_6_0
       _sharedStoreManager.hostedContents = [NSMutableArray array];
 #endif
-      [_sharedStoreManager requestProductData];
+//      [_sharedStoreManager requestProductData];
       [[SKPaymentQueue defaultQueue] addTransactionObserver:_sharedStoreManager];
       [_sharedStoreManager startVerifyingSubscriptionReceipts];
     });
@@ -245,6 +245,7 @@ static NSDictionary* _storeKitItems;
   [productsArray addObjectsFromArray:nonConsumables];
   [productsArray addObjectsFromArray:subscriptions];
 
+  self.purchasableObjects = [NSMutableArray array];
   self.productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productsArray]];
   self.productsRequest.delegate = self;
   [self.productsRequest start];
