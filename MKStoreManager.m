@@ -309,8 +309,8 @@ static NSDictionary* _storeKitItems;
 	for(int i=0;i<[self.purchasableObjects count];i++)
 	{
 		SKProduct *product = [self.purchasableObjects objectAtIndex:i];
-		NSLog(@"Feature: %@, Cost: %f, ID: %@",[product localizedTitle],
-          [[product price] doubleValue], [product productIdentifier]);
+//		NSLog(@"Feature: %@, Cost: %f, ID: %@", [product localizedTitle], [[product price] doubleValue], [product productIdentifier]);
+		NSLog(@"Feature: %@", [product localizedTitle]);
 	}
 	
 	for(NSString *invalidProduct in response.invalidProductIdentifiers)
@@ -372,20 +372,8 @@ static NSDictionary* _storeKitItems;
 	{
 		SKProduct *product = [self.purchasableObjects objectAtIndex:i];
 		
-		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-		[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-		[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-		[numberFormatter setLocale:product.priceLocale];
-		NSString *formattedString = [numberFormatter stringFromNumber:product.price];
-		
 		// you might probably need to change this line to suit your UI needs
         [productDict setObject:[product localizedDescription] forKey:product.productIdentifier]; 
-
-		NSString *description = [NSString stringWithFormat:@"%@: \"%@\" (%@)", [product localizedTitle], [product localizedDescription], formattedString];
-		
-#ifndef NDEBUG
-		NSLog(@"Product %d - %@", i, description);
-#endif
 	}
 	
 	return productDict;
