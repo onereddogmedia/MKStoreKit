@@ -365,8 +365,14 @@ static NSDictionary* _storeKitItems;
 	{
 		SKProduct *product = [self.purchasableObjects objectAtIndex:i];
 		
+        NSString *description = [product localizedDescription];
+        if (description == nil)
+        {
+            description = @"Product Description";
+        }
+        
 		// you might probably need to change this line to suit your UI needs
-        [productDict setObject:[product localizedDescription] forKey:product.productIdentifier]; 
+        [productDict setObject:description forKey:product.productIdentifier];
 	}
 	
 	return productDict;
