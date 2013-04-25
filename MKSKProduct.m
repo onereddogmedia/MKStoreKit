@@ -279,7 +279,7 @@ didReceiveResponse:(NSURLResponse *)response
     if(onReviewRequestVerificationSucceeded)
     {
       onReviewRequestVerificationSucceeded(responseString);
-      onReviewRequestVerificationFailed = nil;
+      onReviewRequestVerificationSucceeded = nil;
     }
 	}
   else

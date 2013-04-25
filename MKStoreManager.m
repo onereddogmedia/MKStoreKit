@@ -617,7 +617,10 @@ static NSDictionary* _storeKitItems;
        
        [MKStoreManager setObject:receiptData forKey:productIdentifier];
        if(self.onTransactionCompleted)
+       {
          self.onTransactionCompleted(productIdentifier, receiptData, hostedContent);
+         self.onTransactionCompleted = nil;
+       }
      }
                                          onError:^(NSError* error)
      {
@@ -635,6 +638,7 @@ static NSDictionary* _storeKitItems;
         if(self.onTransactionCancelled)
         {
           self.onTransactionCancelled(productIdentifier);
+          self.onTransactionCancelled = nil;
         }
         else
         {
@@ -654,13 +658,17 @@ static NSDictionary* _storeKitItems;
        {
          [self rememberPurchaseOfProduct:productIdentifier withReceipt:receiptData];
          if(self.onTransactionCompleted)
+         {
            self.onTransactionCompleted(productIdentifier, receiptData, hostedContent);
+           self.onTransactionCompleted = nil;
+         }
        }
                                    onError:^(NSError* error)
        {
          if(self.onTransactionCancelled)
          {
            self.onTransactionCancelled(productIdentifier);
+           self.onTransactionCancelled = nil;
          }
          else
          {
@@ -672,7 +680,10 @@ static NSDictionary* _storeKitItems;
     {
       [self rememberPurchaseOfProduct:productIdentifier withReceipt:receiptData];
       if(self.onTransactionCompleted)
+      {
         self.onTransactionCompleted(productIdentifier, receiptData, hostedContent);
+        self.onTransactionCompleted = nil;
+      }
     }
   }
 }
@@ -764,7 +775,10 @@ static NSDictionary* _storeKitItems;
   [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
   
   if(self.onTransactionCancelled)
+  {
     self.onTransactionCancelled();
+    self.onTransactionCancelled = nil;
+  }
 }
 
 - (void) completeTransaction: (SKPaymentTransaction *)transaction
