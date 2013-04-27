@@ -73,7 +73,7 @@ static NSDictionary* _storeKitItems;
 
 +(void) updateFromiCloud:(NSNotification*) notificationObject {
   
-  NSLog(@"Updating from iCloud");
+  DLog(@"Updating from iCloud");
   
   NSUbiquitousKeyValueStore *iCloudStore = [NSUbiquitousKeyValueStore defaultStore];
   NSDictionary *dict = [iCloudStore dictionaryRepresentation];
@@ -90,7 +90,7 @@ static NSDictionary* _storeKitItems;
                         forServiceName:@"MKStoreKit"
                         updateExisting:YES
                                  error:&error];
-      if(error) NSLog(@"%@", error);
+      if(error) DLog(@"%@", error);
     }
   }];
 }
@@ -123,7 +123,7 @@ static NSDictionary* _storeKitItems;
     
     NSError *error = nil;
     [SFHFKeychainUtils storeUsername:key andPassword:objectString forServiceName:@"MKStoreKit" updateExisting:YES error:&error];
-    if(error) NSLog(@"%@", error);
+    if(error) DLog(@"%@", error);
     
     if([self iCloudAvailable]) {
       [[NSUbiquitousKeyValueStore defaultStore] setObject:objectString forKey:key];
@@ -133,7 +133,7 @@ static NSDictionary* _storeKitItems;
     
     NSError *error = nil;
     [SFHFKeychainUtils deleteItemForUsername:key andServiceName:@"MKStoreKit" error:&error];
-    if(error) NSLog(@"%@", error);
+    if(error) DLog(@"%@", error);
     
     if([self iCloudAvailable]) {
       [[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:key];
@@ -155,7 +155,7 @@ static NSDictionary* _storeKitItems;
 {
   NSError *error = nil;
   id password = [SFHFKeychainUtils getPasswordForUsername:key andServiceName:@"MKStoreKit" error:&error];
-  if(error) NSLog(@"%@", error);
+  if(error) DLog(@"%@", error);
   
   return password;
 }
@@ -302,12 +302,12 @@ static NSDictionary* _storeKitItems;
 	for(int i=0;i<[self.purchasableObjects count];i++)
 	{
 		SKProduct *product = [self.purchasableObjects objectAtIndex:i];
-//		NSLog(@"Feature: %@, Cost: %f, ID: %@", [product localizedTitle], [[product price] doubleValue], [product productIdentifier]);
-		NSLog(@"Feature: %@", [product localizedTitle]);
+//		DLog(@"Feature: %@, Cost: %f, ID: %@", [product localizedTitle], [[product price] doubleValue], [product productIdentifier]);
+		DLog(@"Feature: %@", [product localizedTitle]);
 	}
 	
 	for(NSString *invalidProduct in response.invalidProductIdentifiers)
-		NSLog(@"Problem in iTunes connect configuration for product: %@", invalidProduct);
+		DLog(@"Problem in iTunes connect configuration for product: %@", invalidProduct);
 #endif
   
 	self.isProductsAvailable = YES;
@@ -454,7 +454,7 @@ static NSDictionary* _storeKitItems;
    }
                                     onError:^(NSError* error)
    {
-     NSLog(@"Review request cannot be checked now: %@", [error description]);
+     DLog(@"Review request cannot be checked now: %@", [error description]);
      [self addToQueue:featureId];
    }];
 }
@@ -527,19 +527,19 @@ static NSDictionary* _storeKitItems;
            [[NSNotificationCenter defaultCenter] postNotificationName:kSubscriptionsInvalidNotification
                                                                object:product.productId];
            
-           NSLog(@"Subscription: %@ is inactive", product.productId);
+           DLog(@"Subscription: %@ is inactive", product.productId);
            product.receipt = nil;
            [self.subscriptionProducts setObject:product forKey:productId];
            [MKStoreManager setObject:nil forKey:product.productId];
          }
          else
          {
-           NSLog(@"Subscription: %@ is active", product.productId);
+           DLog(@"Subscription: %@ is active", product.productId);
          }
        }
                                onError:^(NSError* error)
        {
-         NSLog(@"Unable to check for subscription validity right now");
+         DLog(@"Unable to check for subscription validity right now");
        }];
     }
     
@@ -584,7 +584,7 @@ static NSDictionary* _storeKitItems;
     switch (download.downloadState) {
       case SKDownloadStateFinished:
 #ifndef NDEBUG
-        NSLog(@"Download finished: %@", [download description]);
+        DLog(@"Download finished: %@", [download description]);
 #endif
         [self provideContent:download.transaction.payment.productIdentifier
                   forReceipt:download.transaction.transactionReceipt
@@ -624,7 +624,7 @@ static NSDictionary* _storeKitItems;
      }
                                          onError:^(NSError* error)
      {
-       NSLog(@"%@", [error description]);
+       DLog(@"%@", [error description]);
      }];
   }
   else
@@ -642,7 +642,7 @@ static NSDictionary* _storeKitItems;
         }
         else
         {
-          NSLog(@"Receipt invalid");
+          DLog(@"Receipt invalid");
         }
       }
     }
@@ -672,7 +672,7 @@ static NSDictionary* _storeKitItems;
          }
          else
          {
-           NSLog(@"The receipt could not be verified");
+           DLog(@"The receipt could not be verified");
          }
        }];
     }
@@ -768,8 +768,8 @@ static NSDictionary* _storeKitItems;
 {
   
 #ifndef NDEBUG
-  NSLog(@"Failed transaction: %@", [transaction description]);
-  NSLog(@"error: %@", transaction.error);
+  DLog(@"Failed transaction: %@", [transaction description]);
+  DLog(@"error: %@", transaction.error);
 #endif
 	
   [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
@@ -797,7 +797,7 @@ static NSDictionary* _storeKitItems;
     [[SKPaymentQueue defaultQueue] startDownloads:transaction.downloads];
     // We don't have content yet, and we can't finish the transaction
 #ifndef NDEBUG
-    NSLog(@"Download(s) started: %@", [transaction description]);
+    DLog(@"Download(s) started: %@", [transaction description]);
 #endif
     return;
   }
@@ -829,7 +829,7 @@ static NSDictionary* _storeKitItems;
     [[SKPaymentQueue defaultQueue] startDownloads:transaction.downloads];
     // We don't have content yet, and we can't finish the transaction
 #ifndef NDEBUG
-    NSLog(@"Download(s) started: %@", [transaction description]);
+    DLog(@"Download(s) started: %@", [transaction description]);
 #endif
     return;
   }
